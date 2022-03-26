@@ -13,7 +13,7 @@ export const obj = {
         obj.count++;
     },
     subscribe() {
-        EventEmitter.on('click', this.callback);
+        EventEmitter.on('click', this.callback); // можно везде вместо this.callback написать () => { obj.count++;}
     },
     unsubscribe() {
         EventEmitter.off('click', this.callback);
