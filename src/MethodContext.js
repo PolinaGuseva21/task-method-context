@@ -1,3 +1,4 @@
+import { eventNames } from 'process';
 import { EventEmitter } from './EventEmitter';
 
 /*
@@ -8,8 +9,15 @@ import { EventEmitter } from './EventEmitter';
  */
 export const obj = {
     count: 0,
-    subscribe() {},
-    unsubscribe() {},
+    callback() {
+        obj.count++;
+    },
+    subscribe() {
+        EventEmitter.on('click', this.callback);
+    },
+    unsubscribe() {
+        EventEmitter.off('click', this.callback);
+    },
 };
 
 /*
@@ -19,8 +27,10 @@ obj1.first(1, 2, 3);
 // Внутренний вызов должен быть равносилен obj1.second(3, 2, 1)
  */
 export const obj1 = {
-    first(...args) {},
-    second() {
+    first(...args) {
+        this.second(...args.reverse());
+    },
+    second(...args) {
         // здесь ничего писать не нужно
     },
 };
